@@ -1,10 +1,10 @@
-import Header from "../componets/Header";
+
 
 
 export default function IndexPage() {
   return (
     <>
-    <Header/>
+   <h1>Inicio</h1>
     </>
   )
 }
