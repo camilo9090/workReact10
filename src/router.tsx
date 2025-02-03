@@ -2,7 +2,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import IndexPage from './views/IndexPage'
 import FavoritePage from './views/FavoritePage'
-import Layout from './layout/layout'
+import Layout from './layout/Layout'
 
 export default function AppRouter() {
     return (
