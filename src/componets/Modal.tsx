@@ -1,13 +1,34 @@
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment } from 'react';
+import { Fragment, useMemo } from 'react';
 import { useAppStore } from '../stores/useAppStore';
+import { Recipes } from '../types';
 
 export default function Modal() {
 
     const modal = useAppStore(state => state.modal)
     const closeModal = useAppStore(state => state.closeModal)
     const recipe = useAppStore(state => state.recipes)
+    const handledClickFavorite = useAppStore(state => state.handledClickFavorite)
+    const favoriteExist = useAppStore(state => state.favoriteExist)
+    const renderIngredients = () => {
 
+        const ingredients: JSX.Element[] = []
+
+        for (let i = 1; i <= 6; i++) {
+            const ingredient = recipe[`strIngredient${i}` as keyof Recipes];
+            const measure = recipe[`strMeasure${i}` as keyof Recipes];
+
+            if (ingredient && measure) {
+                ingredients.push(
+
+                    <li className='text-lg font-normal' key={i}>
+                        {ingredient}-{measure}
+                    </li>
+                )
+            }
+        }
+        return ingredients
+    }
     return (
         <>
             <Transition appear show={modal} as={Fragment}>
@@ -48,16 +69,35 @@ export default function Modal() {
                                     </Dialog.Title>
                                     <Dialog.Title as="h3" className="text-gray-900 text-2xl font-extrabold my-5">
                                         Ingredientes y Cantidades
-
+                                        {renderIngredients()}
                                     </Dialog.Title>
                                     <Dialog.Title as="h3" className="text-gray-900 text-2xl font-extrabold my-5">
                                         Instrucciones
                                     </Dialog.Title>
 
                                     <p className='text-lg'>{recipe.strInstructions}</p>
+                                    <div className='mt-5 flex justify-between gap-4'>
+                                        <button
+                                            onClick={closeModal}
+                                            className=' w-full bg-gray-600 rounded-lg p-2  shadow uppercase text-white font-bold hover:bg-gray-700'>
+                                            Cerrar</button>
+
+                                        <button 
+                                        onClick={()=>{
+                                            handledClickFavorite(recipe)
+                                            closeModal()
+
+                                        }}
+                                        className=' w-full bg-orange-600 rounded-lg p-2  shadow uppercase text-white font-bold hover:bg-orange-700'>
+                                           {favoriteExist(recipe.idDrink)?'Eliminar de Favoritos':'Agregar a Favorito'}</button>
+                                    </div>
                                 </Dialog.Panel>
                             </Transition.Child>
+
+
                         </div>
+
+
                     </div>
                 </Dialog>
             </Transition>
