@@ -15,6 +15,7 @@ export default function Header() {
     const fetchCategories = useAppStore(state => state.fetchCategories)
     const category = useAppStore(state => state.categories)
     const searchRecipes = useAppStore(state => state.searchRecipes)
+    const showNotification=useAppStore(state=>state.showNotification)
     useEffect(() => {
         fetchCategories()
 
@@ -32,7 +33,11 @@ export default function Header() {
         //validar
         if (Object.values(serachFilters).includes('')) {
             
-            console.log('No se puede enviar');
+            showNotification({
+
+                text:'Todos los campos son obligatorios',
+                error:true
+            })
             return
 
         }

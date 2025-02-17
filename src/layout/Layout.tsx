@@ -8,7 +8,7 @@ import { useAppStore } from '../stores/useAppStore'
 export default function Layout() {
 
     const loadFromStorage = useAppStore(state => state.loadFromStorage)
-    const notification = useAppStore(state => state.notification)
+   
     useEffect(() => {
         loadFromStorage
     }, [])

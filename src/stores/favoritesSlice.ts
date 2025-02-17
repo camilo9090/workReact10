@@ -1,7 +1,6 @@
 import { StateCreator } from "zustand";
 import { Recipes } from "../types";
 import { createNotificationSlice, NotificationSliceType } from "./notificationSlice";
-import { RecipeSliceType } from "./recipeSlice";
 
 
 

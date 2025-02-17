@@ -15,7 +15,7 @@ export type NotificationSliceType = {
     hideNotification: () => void
 }
 
-export const createNotificationSlice: StateCreator<NotificationSliceType,[],[],NotificationSliceType> = (set) => ({
+export const createNotificationSlice: StateCreator<NotificationSliceType, [], [], NotificationSliceType> = (set,get) => ({
 
     notification: {
 
@@ -34,8 +34,21 @@ export const createNotificationSlice: StateCreator<NotificationSliceType,[],[],N
             }
 
         })
+        setTimeout(()=>{
+           get().hideNotification()
+        },4000)
     },
 
-    hideNotification:()=>{}
+    hideNotification: () => {
+        set({
+            notification: {
+
+                text: '',
+                error: false,
+                show: false
+            },
+        })
+
+    }
 
 })
